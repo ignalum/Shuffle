@@ -72,26 +72,26 @@ namespace Shuffle
 
                 XList[0] = XList[XList.Count - 1] + 1;
                 minInt += (UInt32)XList.Count;
-                if (runValidateIntLoaded)
+                int n = XList.Count;
+                while (n > 0)
                 {
-                    Console.WriteLine("# OF INTEGERS LOADED: " + minInt);
-                    intCounter++;
-                }
-                else
-                {
-                    int n = XList.Count;
-                    while (n > 0)
+                    int k = (rnd.Next(0, n) % n);
+                    n--;
+                    UInt32 value = XList[k];
+                    XList[k] = XList[n];
+                    XList[n] = value;
+                    if (!runValidateIntLoaded)
                     {
-                        int k = (rnd.Next(0, n) % n);
-                        n--;
-                        UInt32 value = XList[k];
-                        XList[k] = XList[n];
-                        XList[n] = value;
                         Console.WriteLine(value);
                         intCounter++;
                     }
                 }
                 XList.Clear();
+                if (runValidateIntLoaded)
+                {
+                    Console.WriteLine("# OF INTEGERS LOADED & RANDOMIZED: " + minInt);
+                    intCounter++;
+                }
             }
             timer.Stop();
             Console.WriteLine("# OF LINES DISPLAYED: " + intCounter);
